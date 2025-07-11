@@ -1,7 +1,7 @@
-import { Header } from '@/components/header'
-import { Hero } from '@/components/hero'
-import { PropertyGrid } from '@/components/property-grid'
-import { Footer } from '@/components/footer'
+import { Header } from "@/components/header";
+import { Hero } from "@/components/hero";
+import { PropertyGrid } from "@/components/property-grid";
+import { Footer } from "@/components/footer";
 
 export default function Home() {
   return (
@@ -13,5 +13,5 @@ export default function Home() {
       </main>
       <Footer />
     </div>
-  )
+  );
 }
