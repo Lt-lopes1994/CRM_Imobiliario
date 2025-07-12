@@ -83,19 +83,19 @@ export function PropertyCard({ property }: PropertyCardProps) {
           {property.title}
         </h3>
 
-        <div className="flex items-center text-gray-600 mb-2">
+        <div className="flex items-center text-gray-800 mb-2">
           <MapPin size={16} className="mr-1" />
           <span className="text-sm">
             {property.address}, {property.city}
           </span>
         </div>
 
-        <p className="text-gray-600 text-sm mb-3 line-clamp-2">
+        <p className="text-gray-800 text-sm mb-3 line-clamp-2">
           {property.description}
         </p>
 
         <div className="flex items-center justify-between mb-3">
-          <div className="flex items-center space-x-4 text-sm text-gray-600">
+          <div className="flex items-center space-x-4 text-sm text-gray-800">
             <div className="flex items-center">
               <Bed size={16} className="mr-1" />
               <span>{property.bedrooms}</span>

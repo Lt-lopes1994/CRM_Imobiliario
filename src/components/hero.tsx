@@ -42,7 +42,7 @@ export function Hero() {
                   placeholder="O que você está procurando?"
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700"
+                  className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900"
                 />
               </div>
               <div className="relative">
@@ -55,7 +55,7 @@ export function Hero() {
                   placeholder="Localização"
                   value={location}
                   onChange={(e) => setLocation(e.target.value)}
-                  className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700"
+                  className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900"
                 />
               </div>
               <button

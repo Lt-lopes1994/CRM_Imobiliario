@@ -12,7 +12,7 @@ export function AdminHeader() {
     <header className="bg-white shadow-sm border-b px-6 py-4">
       <div className="flex items-center justify-between">
         <div className="flex items-center space-x-4">
-          <h2 className="text-2xl font-semibold text-gray-900">
+          <h2 className="text-2xl font-bold text-gray-900">
             Painel Administrativo
           </h2>
         </div>
@@ -20,7 +20,7 @@ export function AdminHeader() {
         <div className="flex items-center space-x-4">
           {/* Notifications */}
           <button className="p-2 rounded-full hover:bg-gray-100 relative">
-            <Bell size={20} className="text-gray-600" />
+            <Bell size={20} className="text-gray-900" />
             <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
               3
             </span>
@@ -36,10 +36,12 @@ export function AdminHeader() {
                 <User size={16} className="text-white" />
               </div>
               <div className="text-left">
-                <div className="text-sm font-medium text-gray-900">
+                <div className="text-sm font-bold text-gray-900">
                   {session?.user?.name}
                 </div>
-                <div className="text-xs text-gray-500">Administrador</div>
+                <div className="text-xs text-gray-900 font-medium">
+                  Administrador
+                </div>
               </div>
             </button>
 
@@ -47,14 +49,14 @@ export function AdminHeader() {
               <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50">
                 <button
                   onClick={() => setShowDropdown(false)}
-                  className="flex items-center w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                  className="flex items-center w-full px-4 py-2 text-sm text-gray-900 hover:bg-gray-100"
                 >
                   <Settings size={16} className="mr-2" />
                   Configurações
                 </button>
                 <button
                   onClick={() => signOut()}
-                  className="flex items-center w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                  className="flex items-center w-full px-4 py-2 text-sm text-gray-900 hover:bg-gray-100"
                 >
                   <LogOut size={16} className="mr-2" />
                   Sair

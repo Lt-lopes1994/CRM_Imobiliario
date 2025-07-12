@@ -63,7 +63,7 @@ export function PropertyFilters({
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
           {/* Tipo de Imóvel */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-gray-900 mb-1">
               Tipo
             </label>
             <select
@@ -82,7 +82,7 @@ export function PropertyFilters({
 
           {/* Preço Mínimo */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-gray-900 mb-1">
               Preço Mín.
             </label>
             <input
@@ -96,7 +96,7 @@ export function PropertyFilters({
 
           {/* Preço Máximo */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-gray-900 mb-1">
               Preço Máx.
             </label>
             <input
@@ -110,7 +110,7 @@ export function PropertyFilters({
 
           {/* Quartos */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-gray-900 mb-1">
               Quartos
             </label>
             <select
@@ -129,7 +129,7 @@ export function PropertyFilters({
 
           {/* Banheiros */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-gray-900 mb-1">
               Banheiros
             </label>
             <select
@@ -147,7 +147,7 @@ export function PropertyFilters({
 
           {/* Cidade */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-gray-900 mb-1">
               Cidade
             </label>
             <input
@@ -164,7 +164,7 @@ export function PropertyFilters({
         <div className="flex justify-end">
           <button
             onClick={clearFilters}
-            className="text-sm text-gray-600 hover:text-gray-800 underline"
+            className="text-sm text-gray-800 hover:text-gray-900 underline"
           >
             Limpar Filtros
           </button>

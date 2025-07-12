@@ -27,6 +27,254 @@
   overflow: hidden;
 }
 
+/* Enhanced contrast for better accessibility */
+.placeholder-gray-500::placeholder {
+  color: #4b5563 !important; /* Darker for better contrast */
+  opacity: 1;
+}
+
+.text-high-contrast {
+  color: #111827 !important; /* Darker for better contrast */
+}
+
+.label-high-contrast {
+  color: #1f2937 !important; /* Darker for better contrast */
+  font-weight: 600;
+}
+
+/* Global text contrast improvements */
+.text-gray-500 {
+  color: #4b5563 !important; /* Darker gray for better contrast */
+}
+
+.text-gray-600 {
+  color: #374151 !important; /* Darker gray for better contrast */
+}
+
+.text-gray-700 {
+  color: #1f2937 !important; /* Darker gray for better contrast */
+}
+
+.text-gray-800 {
+  color: #111827 !important; /* Ensure very dark text */
+}
+
+.text-gray-900 {
+  color: #000000 !important; /* Pure black for maximum contrast */
+}
+
+/* Placeholder improvements */
+input::placeholder,
+textarea::placeholder {
+  color: #4b5563 !important; /* Darker placeholder text */
+  opacity: 1;
+}
+
+/* Secondary text improvements */
+.text-muted {
+  color: #374151 !important; /* Better contrast for secondary text */
+}
+
+/* Button text improvements */
+.text-blue-600 {
+  color: #1d4ed8 !important; /* Darker blue for better contrast */
+}
+
+.text-blue-700 {
+  color: #1e40af !important; /* Even darker blue */
+}
+
+/* Form inputs with better contrast */
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus,
+input[type="number"]:focus,
+textarea:focus,
+select:focus {
+  border-color: #3b82f6 !important;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1) !important;
+}
+
+/* Additional contrast improvements for better accessibility */
+.form-label {
+  color: #000000 !important;
+  font-weight: 700 !important;
+  font-size: 0.875rem !important;
+}
+
+.form-description {
+  color: #1f2937 !important;
+  font-weight: 500 !important;
+}
+
+.form-error {
+  color: #dc2626 !important;
+  font-weight: 600 !important;
+}
+
+/* Improve button contrast */
+.btn-primary {
+  background-color: #1d4ed8 !important;
+  color: #ffffff !important;
+  font-weight: 600 !important;
+}
+
+.btn-secondary {
+  background-color: #374151 !important;
+  color: #ffffff !important;
+  border-color: #374151 !important;
+}
+
+/* Improve link contrast */
+a {
+  color: #1d4ed8 !important;
+  text-decoration: underline;
+}
+
+a:hover {
+  color: #1e40af !important;
+}
+
+/* Improve navigation contrast */
+.nav-link {
+  color: #111827 !important;
+  font-weight: 500 !important;
+}
+
+.nav-link:hover {
+  color: #000000 !important;
+}
+
+/* Improve card text contrast */
+.card-title {
+  color: #000000 !important;
+  font-weight: 700 !important;
+}
+
+.card-description {
+  color: #1f2937 !important;
+  font-weight: 500 !important;
+}
+
+/* Improve table text contrast */
+.table-header {
+  color: #000000 !important;
+  font-weight: 700 !important;
+}
+
+.table-cell {
+  color: #111827 !important;
+}
+
+/* Improve status indicators */
+.status-active {
+  background-color: #16a34a !important;
+  color: #ffffff !important;
+}
+
+.status-inactive {
+  background-color: #dc2626 !important;
+  color: #ffffff !important;
+}
+
+/* Improve alert contrast */
+.alert-success {
+  background-color: #dcfce7 !important;
+  color: #14532d !important;
+  border-color: #16a34a !important;
+}
+
+.alert-error {
+  background-color: #fef2f2 !important;
+  color: #7f1d1d !important;
+  border-color: #dc2626 !important;
+}
+
+.alert-warning {
+  background-color: #fef3c7 !important;
+  color: #78350f !important;
+  border-color: #d97706 !important;
+}
+
+/* Improve sidebar contrast */
+.sidebar-link {
+  color: #111827 !important;
+  font-weight: 500 !important;
+}
+
+.sidebar-link:hover {
+  color: #000000 !important;
+  background-color: #f3f4f6 !important;
+}
+
+.sidebar-link.active {
+  color: #1d4ed8 !important;
+  background-color: #dbeafe !important;
+}
+
+/* Dashboard specific improvements */
+.dashboard-card {
+  background-color: #ffffff !important;
+  border: 1px solid #e5e7eb !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) !important;
+}
+
+.dashboard-card-title {
+  color: #000000 !important;
+  font-weight: 700 !important;
+}
+
+.dashboard-card-value {
+  color: #000000 !important;
+  font-weight: 800 !important;
+}
+
+.dashboard-card-change {
+  color: #059669 !important;
+  font-weight: 600 !important;
+}
+
+.dashboard-section-title {
+  color: #000000 !important;
+  font-weight: 700 !important;
+}
+
+.dashboard-item-title {
+  color: #000000 !important;
+  font-weight: 700 !important;
+}
+
+.dashboard-item-description {
+  color: #111827 !important;
+  font-weight: 500 !important;
+}
+
+.dashboard-item-time {
+  color: #1f2937 !important;
+  font-weight: 600 !important;
+}
+
+.dashboard-update-time {
+  color: #000000 !important;
+  font-weight: 600 !important;
+}
+
+/* Quick action buttons */
+.quick-action-button {
+  border: 2px solid transparent !important;
+  transition: all 0.2s ease !important;
+}
+
+.quick-action-button:hover {
+  border-color: currentColor !important;
+  transform: translateY(-1px) !important;
+}
+
+.quick-action-text {
+  font-weight: 700 !important;
+  text-decoration: none !important;
+}
+
 body {
   background: var(--background);
   color: var(--foreground);
