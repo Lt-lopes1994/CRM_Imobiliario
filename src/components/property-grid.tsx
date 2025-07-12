@@ -70,7 +70,7 @@ export function PropertyGrid() {
         <h2 className="text-3xl font-bold text-gray-900 mb-4">
           Imóveis em Destaque
         </h2>
-        <p className="text-gray-600 max-w-2xl mx-auto">
+        <p className="text-gray-800 max-w-2xl mx-auto">
           Explore nossa seleção de imóveis cuidadosamente escolhidos para você
         </p>
       </div>
@@ -95,7 +95,7 @@ export function PropertyGrid() {
         </div>
       ) : properties.length === 0 ? (
         <div className="text-center py-12">
-          <p className="text-gray-500 text-lg">
+          <p className="text-gray-700 text-lg">
             Nenhum imóvel encontrado com os filtros aplicados.
           </p>
         </div>

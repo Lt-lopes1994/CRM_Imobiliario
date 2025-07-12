@@ -19,13 +19,13 @@ export function Header() {
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-8">
-            <Link href="/" className="text-gray-700 hover:text-blue-600">
+            <Link href="/" className="text-gray-900 hover:text-blue-600">
               Início
             </Link>
-            <Link href="/imoveis" className="text-gray-700 hover:text-blue-600">
+            <Link href="/imoveis" className="text-gray-900 hover:text-blue-600">
               Imóveis
             </Link>
-            <Link href="/contato" className="text-gray-700 hover:text-blue-600">
+            <Link href="/contato" className="text-gray-900 hover:text-blue-600">
               Contato
             </Link>
           </nav>
@@ -34,11 +34,11 @@ export function Header() {
           <div className="hidden md:flex items-center space-x-4">
             {session ? (
               <div className="flex items-center space-x-4">
-                <span className="text-gray-700">Olá, {session.user.name}</span>
+                <span className="text-gray-900">Olá, {session.user.name}</span>
                 {session.user.role === "ADMIN" && (
                   <Link
                     href="/admin"
-                    className="flex items-center space-x-1 text-gray-700 hover:text-blue-600"
+                    className="flex items-center space-x-1 text-gray-900 hover:text-blue-600"
                   >
                     <Settings size={16} />
                     <span>Admin</span>
@@ -46,7 +46,7 @@ export function Header() {
                 )}
                 <button
                   onClick={() => signOut()}
-                  className="flex items-center space-x-1 text-gray-700 hover:text-red-600"
+                  className="flex items-center space-x-1 text-gray-900 hover:text-red-600"
                 >
                   <LogOut size={16} />
                   <span>Sair</span>
@@ -75,30 +75,30 @@ export function Header() {
         {isMenuOpen && (
           <div className="md:hidden py-4 border-t">
             <nav className="flex flex-col space-y-4">
-              <Link href="/" className="text-gray-700 hover:text-blue-600">
+              <Link href="/" className="text-gray-900 hover:text-blue-600">
                 Início
               </Link>
               <Link
                 href="/imoveis"
-                className="text-gray-700 hover:text-blue-600"
+                className="text-gray-900 hover:text-blue-600"
               >
                 Imóveis
               </Link>
               <Link
                 href="/contato"
-                className="text-gray-700 hover:text-blue-600"
+                className="text-gray-900 hover:text-blue-600"
               >
                 Contato
               </Link>
               {session ? (
                 <div className="flex flex-col space-y-2 pt-4 border-t">
-                  <span className="text-gray-700">
+                  <span className="text-gray-900">
                     Olá, {session.user.name}
                   </span>
                   {session.user.role === "ADMIN" && (
                     <Link
                       href="/admin"
-                      className="flex items-center space-x-1 text-gray-700 hover:text-blue-600"
+                      className="flex items-center space-x-1 text-gray-900 hover:text-blue-600"
                     >
                       <Settings size={16} />
                       <span>Admin</span>
@@ -106,7 +106,7 @@ export function Header() {
                   )}
                   <button
                     onClick={() => signOut()}
-                    className="flex items-center space-x-1 text-gray-700 hover:text-red-600"
+                    className="flex items-center space-x-1 text-gray-900 hover:text-red-600"
                   >
                     <LogOut size={16} />
                     <span>Sair</span>
