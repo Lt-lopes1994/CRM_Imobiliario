@@ -1,0 +1,24 @@
+{
+  "admin": {
+    "name": "Bruno Admin",
+    "email": "admin@crm.com",
+    "password": "admin123",
+    "role": "ADMIN"
+  },
+  "user": {
+    "name": "João Silva",
+    "email": "user@crm.com",
+    "password": "user123",
+    "role": "USER"
+  },
+  "newUser": {
+    "name": "Maria Santos",
+    "email": "maria@test.com",
+    "password": "senha123",
+    "confirmPassword": "senha123"
+  },
+  "invalidUser": {
+    "email": "nonexistent@test.com",
+    "password": "wrongpassword"
+  }
+}

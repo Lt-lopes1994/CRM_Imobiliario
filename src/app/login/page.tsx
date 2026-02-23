@@ -40,7 +40,7 @@ export default function Login() {
       } else {
         router.push("/");
       }
-    } catch (loginError) {
+    } catch {
       setError("Erro ao fazer login");
     } finally {
       setLoading(false);

@@ -23,6 +23,8 @@ export async function GET() {
       usersThisMonth,
       messagesThisMonth,
       salesThisMonth,
+      recentProperties,
+      recentMessages,
     ] = await Promise.all([
       prisma.property.count(),
       prisma.user.count(),
@@ -59,6 +61,32 @@ export async function GET() {
           salePrice: true,
         },
       }),
+      prisma.property.findMany({
+        take: 5,
+        orderBy: {
+          createdAt: "desc",
+        },
+        select: {
+          id: true,
+          title: true,
+          city: true,
+          state: true,
+          salePrice: true,
+          createdAt: true,
+        },
+      }),
+      prisma.message.findMany({
+        take: 5,
+        orderBy: {
+          createdAt: "desc",
+        },
+        select: {
+          id: true,
+          name: true,
+          message: true,
+          createdAt: true,
+        },
+      }),
     ]);
 
     // Calcular receita total e deste mês
@@ -78,7 +106,7 @@ export async function GET() {
       (sum: number, property: { salePrice: number | null }) => {
         return sum + (property.salePrice || 0);
       },
-      0
+      0,
     );
 
     return NextResponse.json({
@@ -90,12 +118,14 @@ export async function GET() {
       usersThisMonth,
       messagesThisMonth,
       revenueThisMonth,
+      recentProperties,
+      recentMessages,
     });
   } catch (error) {
     console.error("Erro ao buscar dados do dashboard:", error);
     return NextResponse.json(
       { error: "Erro interno do servidor" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

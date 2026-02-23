@@ -35,7 +35,7 @@ const propertySchema = z.object({
     .optional(),
   salePrice: z.number().min(0, "Preço de venda deve ser positivo").optional(),
   rentPrice: z.number().min(0, "Preço de aluguel deve ser positivo").optional(),
-  propertyType: z.enum(["HOUSE", "APARTMENT", "COMMERCIAL", "LAND", "OTHER"]),
+  propertyType: z.enum(["HOUSE", "APARTMENT", "COMMERCIAL", "LAND", "STUDIO"]),
   categoryId: z.string().min(1, "Categoria é obrigatória"),
 });
 
@@ -175,7 +175,7 @@ export default function NewPropertyPage() {
                 <option value="APARTMENT">Apartamento</option>
                 <option value="COMMERCIAL">Comercial</option>
                 <option value="LAND">Terreno</option>
-                <option value="OTHER">Outro</option>
+                <option value="STUDIO">Estúdio</option>
               </select>
               {errors.propertyType && (
                 <p className="mt-1 text-sm text-red-600">

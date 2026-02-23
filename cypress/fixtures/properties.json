@@ -1,0 +1,57 @@
+{
+  "house": {
+    "title": "Casa Moderna com 3 Quartos",
+    "description": "Bela casa em condomínio fechado com piscina e academia",
+    "propertyType": "HOUSE",
+    "address": "Rua das Flores, 123",
+    "price": 450000,
+    "bedrooms": 3,
+    "bathrooms": 2,
+    "area": 180,
+    "status": "AVAILABLE"
+  },
+  "apartment": {
+    "title": "Apartamento 2BR no Centro",
+    "description": "Apartamento espaçoso com vista para a cidade",
+    "propertyType": "APARTMENT",
+    "address": "Avenida Paulista, 1000",
+    "price": 350000,
+    "bedrooms": 2,
+    "bathrooms": 1,
+    "area": 120,
+    "status": "AVAILABLE"
+  },
+  "commercial": {
+    "title": "Loja Comercial em Zona Beta",
+    "description": "Espaço ideal para comércio, ótima localização",
+    "propertyType": "COMMERCIAL",
+    "address": "Shopping Center Beta",
+    "price": 250000,
+    "bedrooms": 0,
+    "bathrooms": 1,
+    "area": 80,
+    "status": "AVAILABLE"
+  },
+  "land": {
+    "title": "Terreno para Desenvolvimento",
+    "description": "Excelente localização para construção residencial",
+    "propertyType": "LAND",
+    "address": "Rodovia BR-101, km 50",
+    "price": 150000,
+    "bedrooms": 0,
+    "bathrooms": 0,
+    "area": 500,
+    "status": "AVAILABLE"
+  },
+  "studio": {
+    "title": "Studio Funcional",
+    "description": "Perfeito para solteiros ou casais sem filhos",
+    "propertyType": "STUDIO",
+    "address": "Bairro Residencial, 456",
+    "price": 200000,
+    "bedrooms": 0,
+    "bathrooms": 1,
+    "area": 40,
+    "status": "AVAILABLE"
+  }
+}
