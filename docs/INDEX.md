@@ -8,6 +8,7 @@
 
 ### 🚀 Getting Started
 - [**QUICK_START.md**](./QUICK_START.md) - Setup rápido local em 3 passos
+- [**API_CONFIGURATION.md**](./API_CONFIGURATION.md) - Configuração de Backend API URL ⭐ NOVO
 
 ### 🧪 Testes
 - [**CYPRESS_TESTING.md**](./CYPRESS_TESTING.md) - Referência completa Cypress + Allure
@@ -26,16 +27,19 @@
 
 ### Para Desenvolvedores
 1. [Setup Local](./QUICK_START.md) → Começa aqui!
-2. [Testes E2E](./TESTING_GUIDE.md) → Como escrever/rodar testes
-3. [Status Atual](./STATUS.md) → Entender o estado do projeto
+2. [Configurar API Backend](./API_CONFIGURATION.md) → Conectar ao backend NestJS ⭐
+3. [Testes E2E](./TESTING_GUIDE.md) → Como escrever/rodar testes
+4. [Status Atual](./STATUS.md) → Entender o estado do projeto
 
 ### Para DevOps
 1. [Deploy Guide](./DEPLOY_GUIDE.md) → Deploy para Vercel
 2. [CI/CD Setup](./../.github/workflows/) → GitHub Actions
+3. [API Configuration](./API_CONFIGURATION.md) → Configurar backend URL
 
 ### Para Backend Dev
-1. [NestJS Roadmap](./NESTJS_BACKEND_ROADMAP.md) → Plano do backend
-2. [Backend Repo](https://github.com/Lt-lopes1994/CRM_Imobiliario_Backend) → Código NestJS
+1. [API Configuration](./API_CONFIGURATION.md) → Como frontend se conecta ao backend ⭐
+2. [NestJS Roadmap](./NESTJS_BACKEND_ROADMAP.md) → Plano do backend
+3. [Backend Repo](https://github.com/Lt-lopes1994/CRM_Imobiliario_Backend) → Código NestJS
 
 ### Para QA/Tester
 1. [Cypress Reference](./CYPRESS_TESTING.md) → Tudo sobre testes
@@ -52,6 +56,15 @@
 ✅ Inicie servidor
 ✅ Contas de teste
 ✅ Comandos úteis
+```
+
+### API_CONFIGURATION.md ⭐ NOVO
+```
+✅ Configurar URL base do backend
+✅ Helper getApiUrl() para requisições
+✅ Suporte a backend externo ou local
+✅ Exemplo de migração
+✅ Troubleshooting CORS
 ```
 
 ### CYPRESS_TESTING.md
@@ -106,6 +119,9 @@
 ### Preciso iniciar o projeto localmente?
 👉 Leia [QUICK_START.md](./QUICK_START.md)
 
+### Preciso configurar backend externo?
+👉 Leia [API_CONFIGURATION.md](./API_CONFIGURATION.md) ⭐
+
 ### Preciso rodar testes?
 👉 Leia [TESTING_GUIDE.md](./TESTING_GUIDE.md)
 
@@ -128,6 +144,7 @@
 | Arquivo | Tipo | Leitura | Uso |
 |---------|------|---------|-----|
 | QUICK_START.md | Setup | 5 min | Initializar projeto |
+| API_CONFIGURATION.md | Config | 10 min | Conectar backend ⭐ |
 | TESTING_GUIDE.md | Tutorial | 15 min | Aprender testes |
 | CYPRESS_TESTING.md | Referência | 20 min | Consulta técnica |
 | STATUS.md | Status | 10 min | Entender progresso |
