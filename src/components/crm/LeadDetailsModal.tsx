@@ -12,6 +12,7 @@ import {
   PROPERTY_TYPE_LABELS,
   LEAD_STAGE_LABELS,
   LEAD_SOURCE_LABELS,
+  ContactChannel,
 } from '@/types/crm';
 import { useLeads, useClients } from '@/hooks/useCRM';
 
@@ -79,7 +80,7 @@ export default function LeadDetailsModal({ lead, onClose, onUpdate }: LeadDetail
 
     try {
       await createClientFromLead(lead.id, {
-        preferredChannel: 'whatsapp',
+        preferredChannel: ContactChannel.WHATSAPP,
         tags: ['novo-cliente'],
       });
       alert('Lead convertido em cliente com sucesso!');

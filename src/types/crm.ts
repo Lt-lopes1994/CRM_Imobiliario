@@ -27,7 +27,7 @@ export enum PropertyType {
   STUDIO = 'STUDIO',
 }
 
-export enum MessageChannel {
+export enum ContactChannel {
   WHATSAPP = 'whatsapp',
   EMAIL = 'email',
   SMS = 'sms',
@@ -123,7 +123,7 @@ export interface KanbanBoard {
 // ==================== CLIENTS ====================
 
 export interface CreateClientFromLeadDto {
-  preferredChannel?: MessageChannel;
+  preferredChannel?: ContactChannel;
   tags?: string[];
 }
 
@@ -132,21 +132,23 @@ export interface Client {
   name: string;
   email: string;
   phone: string;
-  preferredChannel?: MessageChannel;
+  city?: string;
+  preferredChannel?: ContactChannel;
   tags?: string[];
+  leadId?: string;
   createdAt: string;
   updatedAt: string;
 }
 
 export interface SendMessageDto {
-  channel: MessageChannel;
+  channel: ContactChannel;
   content: string;
 }
 
 export interface OutboundMessage {
   id: string;
   clientId: string;
-  channel: MessageChannel;
+  channel: ContactChannel;
   content: string;
   sentAt: string;
 }

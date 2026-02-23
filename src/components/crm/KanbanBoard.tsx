@@ -43,7 +43,14 @@ export default function KanbanBoardComponent({ onCardClick }: KanbanBoardCompone
     }
   };
 
-  const stages: LeadStage[] = ['NEW', 'CONTACTED', 'QUALIFIED', 'PROPOSAL', 'WON', 'LOST'];
+  const stages: LeadStage[] = [
+    LeadStage.NEW,
+    LeadStage.CONTACTED,
+    LeadStage.QUALIFIED,
+    LeadStage.PROPOSAL,
+    LeadStage.WON,
+    LeadStage.LOST,
+  ];
 
   if (loading && !board) {
     return (

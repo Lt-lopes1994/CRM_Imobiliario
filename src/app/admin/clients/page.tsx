@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import { Mail, Phone, MapPin, Calendar, User, MessageSquare, ExternalLink } from 'lucide-react';
 import { useClients } from '@/hooks/useCRM';
-import { Client } from '@/types/crm';
+import { Client, ContactChannel } from '@/types/crm';
 
 export default function ClientsPage() {
   const { getClients, sendMessage, loading, error } = useClients();
@@ -30,7 +30,10 @@ export default function ClientsPage() {
 
     setSendingMessage(true);
     try {
-      await sendMessage(selectedClient.id, { message: messageText });
+      await sendMessage(selectedClient.id, { 
+        channel: selectedClient.preferredChannel || ContactChannel.EMAIL,
+        content: messageText 
+      });
       setMessageText('');
       alert('Mensagem enviada com sucesso!');
       setSelectedClient(null);
