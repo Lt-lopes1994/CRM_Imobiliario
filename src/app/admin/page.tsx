@@ -8,6 +8,7 @@ import {
   TrendingUp,
   DollarSign,
 } from "lucide-react";
+import { apiRequest } from "@/lib/api";
 
 interface DashboardStats {
   totalProperties: number;
@@ -18,6 +19,20 @@ interface DashboardStats {
   usersThisMonth: number;
   messagesThisMonth: number;
   revenueThisMonth: number;
+  recentProperties: Array<{
+    id: string;
+    title: string;
+    city: string;
+    state: string;
+    salePrice: number | null;
+    createdAt: string;
+  }>;
+  recentMessages: Array<{
+    id: string;
+    name: string;
+    message: string;
+    createdAt: string;
+  }>;
 }
 
 export default function AdminDashboard() {
@@ -30,6 +45,8 @@ export default function AdminDashboard() {
     usersThisMonth: 0,
     messagesThisMonth: 0,
     revenueThisMonth: 0,
+    recentProperties: [],
+    recentMessages: [],
   });
   const [loading, setLoading] = useState(true);
 
@@ -39,9 +56,22 @@ export default function AdminDashboard() {
 
   const fetchDashboardData = async () => {
     try {
-      const response = await fetch("/api/admin/dashboard");
+      const response = await apiRequest("/admin/dashboard");
       const data = await response.json();
-      setStats(data);
+
+      // Garantir valores padrão para evitar erros com undefined
+      setStats({
+        totalProperties: data.totalProperties ?? 0,
+        totalUsers: data.totalUsers ?? 0,
+        totalMessages: data.totalMessages ?? 0,
+        totalRevenue: data.totalRevenue ?? 0,
+        propertiesThisMonth: data.propertiesThisMonth ?? 0,
+        usersThisMonth: data.usersThisMonth ?? 0,
+        messagesThisMonth: data.messagesThisMonth ?? 0,
+        revenueThisMonth: data.revenueThisMonth ?? 0,
+        recentProperties: data.recentProperties ?? [],
+        recentMessages: data.recentMessages ?? [],
+      });
     } catch (error) {
       console.error("Erro ao carregar dados do dashboard:", error);
     } finally {
@@ -60,28 +90,28 @@ export default function AdminDashboard() {
     {
       title: "Total de Imóveis",
       value: stats.totalProperties,
-      change: stats.propertiesThisMonth,
+      changeText: `+${stats.propertiesThisMonth} este mês`,
       icon: Building,
       color: "bg-blue-500",
     },
     {
       title: "Usuários Cadastrados",
       value: stats.totalUsers,
-      change: stats.usersThisMonth,
+      changeText: `+${stats.usersThisMonth} este mês`,
       icon: Users,
       color: "bg-green-500",
     },
     {
       title: "Mensagens Recebidas",
       value: stats.totalMessages,
-      change: stats.messagesThisMonth,
+      changeText: `+${stats.messagesThisMonth} este mês`,
       icon: MessageSquare,
       color: "bg-yellow-500",
     },
     {
       title: "Receita Total",
       value: formatCurrency(stats.totalRevenue),
-      change: `+${formatCurrency(stats.revenueThisMonth)}`,
+      changeText: `+${formatCurrency(stats.revenueThisMonth)} este mês`,
       icon: DollarSign,
       color: "bg-purple-500",
     },
@@ -128,10 +158,10 @@ export default function AdminDashboard() {
                   <p className="text-2xl font-bold text-gray-900">
                     {typeof card.value === "string"
                       ? card.value
-                      : card.value.toLocaleString()}
+                      : (card.value ?? 0).toLocaleString()}
                   </p>
                   <p className="text-sm text-green-600 mt-1">
-                    +{card.change} este mês
+                    {card.changeText}
                   </p>
                 </div>
                 <div className={`p-3 rounded-full ${card.color}`}>
@@ -149,60 +179,69 @@ export default function AdminDashboard() {
           <h3 className="text-lg font-bold text-gray-900 mb-4">
             Imóveis Recentes
           </h3>
-          <div className="space-y-3">
-            {/* Placeholder for recent properties */}
-            <div className="flex items-center justify-between py-2 border-b">
-              <div>
-                <p className="font-bold text-gray-900">Casa no Centro</p>
-                <p className="text-sm text-gray-900">São Paulo, SP</p>
-              </div>
-              <div className="text-right">
-                <p className="font-medium text-green-600">R$ 450.000</p>
-                <p className="text-sm text-gray-900 font-medium">Há 2 dias</p>
-              </div>
+          {stats.recentProperties.length === 0 ? (
+            <p className="text-sm text-gray-800">
+              Nenhum imóvel recente encontrado.
+            </p>
+          ) : (
+            <div className="space-y-3">
+              {stats.recentProperties.map((property) => (
+                <div
+                  key={property.id}
+                  className="flex items-center justify-between py-2 border-b"
+                >
+                  <div>
+                    <p className="font-bold text-gray-900">{property.title}</p>
+                    <p className="text-sm text-gray-900">
+                      {property.city}, {property.state}
+                    </p>
+                  </div>
+                  <div className="text-right">
+                    <p className="font-medium text-green-600">
+                      {property.salePrice
+                        ? formatCurrency(property.salePrice)
+                        : "Venda não informada"}
+                    </p>
+                    <p className="text-sm text-gray-900 font-medium">
+                      {new Date(property.createdAt).toLocaleDateString("pt-BR")}
+                    </p>
+                  </div>
+                </div>
+              ))}
             </div>
-            <div className="flex items-center justify-between py-2 border-b">
-              <div>
-                <p className="font-bold text-gray-900">Apartamento Moderno</p>
-                <p className="text-sm text-gray-900">Rio de Janeiro, RJ</p>
-              </div>
-              <div className="text-right">
-                <p className="font-medium text-green-600">R$ 320.000</p>
-                <p className="text-sm text-gray-900 font-medium">Há 3 dias</p>
-              </div>
-            </div>
-          </div>
+          )}
         </div>
 
         <div className="bg-white rounded-lg shadow p-6">
           <h3 className="text-lg font-bold text-gray-900 mb-4">
             Mensagens Recentes
           </h3>
-          <div className="space-y-3">
-            {/* Placeholder for recent messages */}
-            <div className="flex items-center justify-between py-2 border-b">
-              <div>
-                <p className="font-bold text-gray-900">João Silva</p>
-                <p className="text-sm text-gray-900">
-                  Interesse em casa no centro
-                </p>
-              </div>
-              <div className="text-right">
-                <p className="text-sm text-gray-900 font-medium">Há 1 hora</p>
-              </div>
+          {stats.recentMessages.length === 0 ? (
+            <p className="text-sm text-gray-800">
+              Nenhuma mensagem recente encontrada.
+            </p>
+          ) : (
+            <div className="space-y-3">
+              {stats.recentMessages.map((message) => (
+                <div
+                  key={message.id}
+                  className="flex items-center justify-between py-2 border-b"
+                >
+                  <div>
+                    <p className="font-bold text-gray-900">{message.name}</p>
+                    <p className="text-sm text-gray-900 line-clamp-1">
+                      {message.message}
+                    </p>
+                  </div>
+                  <div className="text-right">
+                    <p className="text-sm text-gray-900 font-medium">
+                      {new Date(message.createdAt).toLocaleDateString("pt-BR")}
+                    </p>
+                  </div>
+                </div>
+              ))}
             </div>
-            <div className="flex items-center justify-between py-2 border-b">
-              <div>
-                <p className="font-bold text-gray-900">Maria Santos</p>
-                <p className="text-sm text-gray-900">
-                  Pergunta sobre apartamento
-                </p>
-              </div>
-              <div className="text-right">
-                <p className="text-sm text-gray-900 font-medium">Há 2 horas</p>
-              </div>
-            </div>
-          </div>
+          )}
         </div>
       </div>
 

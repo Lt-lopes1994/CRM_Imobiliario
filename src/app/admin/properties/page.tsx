@@ -14,6 +14,7 @@ import {
   Bath,
   Square,
 } from "lucide-react";
+import { apiRequest } from "@/lib/api";
 
 interface Property {
   id: string;
@@ -48,7 +49,7 @@ export default function PropertiesPage() {
 
   const fetchProperties = async () => {
     try {
-      const response = await fetch("/api/admin/properties");
+      const response = await apiRequest("/admin/properties");
       if (response.ok) {
         const data = await response.json();
         setProperties(data);
@@ -63,7 +64,7 @@ export default function PropertiesPage() {
   const handleDelete = async (id: string) => {
     if (confirm("Tem certeza que deseja excluir este imóvel?")) {
       try {
-        const response = await fetch(`/api/admin/properties/${id}`, {
+        const response = await apiRequest(`/admin/properties/${id}`, {
           method: "DELETE",
         });
 
@@ -232,7 +233,7 @@ export default function PropertiesPage() {
                     </h3>
                     <span
                       className={`px-2 py-1 rounded-full text-xs font-medium ${getStatusColor(
-                        property.status
+                        property.status,
                       )}`}
                     >
                       {getStatusText(property.status)}
