@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-import { X, CheckCircle, TrendingUp, MessageSquare } from 'lucide-react';
+import { X, CheckCircle, TrendingUp } from 'lucide-react';
 import {
   Lead,
   TriageDto,
@@ -70,7 +70,7 @@ export default function LeadDetailsModal({ lead, onClose, onUpdate }: LeadDetail
       alert('Triagem realizada com sucesso!');
       onUpdate?.();
       onClose();
-    } catch (err) {
+    } catch {
       alert('Erro ao realizar triagem. Tente novamente.');
     }
   };
@@ -86,7 +86,7 @@ export default function LeadDetailsModal({ lead, onClose, onUpdate }: LeadDetail
       alert('Lead convertido em cliente com sucesso!');
       onUpdate?.();
       onClose();
-    } catch (err) {
+    } catch {
       alert('Erro ao converter em cliente. Tente novamente.');
     }
   };

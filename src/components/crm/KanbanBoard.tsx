@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { Lead, LeadStage, KanbanBoard } from '@/types/crm';
 import { useLeads } from '@/hooks/useCRM';
 import KanbanColumn from './KanbanColumn';
@@ -15,18 +15,18 @@ export default function KanbanBoardComponent({ onCardClick }: KanbanBoardCompone
   const [board, setBoard] = useState<KanbanBoard | null>(null);
   const [updating, setUpdating] = useState(false);
 
-  const loadBoard = async () => {
+  const loadBoard = useCallback(async () => {
     try {
       const data = await getKanbanBoard();
       setBoard(data);
     } catch (err) {
       console.error('Erro ao carregar kanban:', err);
     }
-  };
+  }, [getKanbanBoard]);
 
   useEffect(() => {
     loadBoard();
-  }, []);
+  }, [loadBoard]);
 
   const handleDrop = async (leadId: string, newStage: LeadStage) => {
     if (!board) return;

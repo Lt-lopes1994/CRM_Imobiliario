@@ -1,14 +1,10 @@
 "use client";
 
-import { DragEvent } from "react";
 import {
   Lead,
-  LeadStage,
   LEAD_STAGE_LABELS,
   LEAD_STAGE_COLORS,
 } from "@/types/crm";
-import { useSortable } from "@dnd-kit/sortable";
-import { CSS } from "@dnd-kit/utilities";
 
 interface LeadCardProps {
   lead: Lead;
@@ -75,7 +71,7 @@ export default function LeadCard({ lead, onCardClick }: LeadCardProps) {
       {/* Notes */}
       {lead.notes && (
         <p className="text-xs text-gray-600 italic mb-3 line-clamp-2">
-          "{lead.notes}"
+          &quot;{lead.notes}&quot;
         </p>
       )}
 
