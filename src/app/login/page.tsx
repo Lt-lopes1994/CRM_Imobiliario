@@ -1,10 +1,11 @@
 "use client";
 
 import { useState } from "react";
-import { signIn, getSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { Eye, EyeOff, LogIn } from "lucide-react";
+import { apiRequest } from "@/lib/api";
+import { saveAuthSession, type AuthLoginResponse } from "@/lib/auth-client";
 
 export default function Login() {
   const [formData, setFormData] = useState({
@@ -22,25 +23,28 @@ export default function Login() {
     setError("");
 
     try {
-      const result = await signIn("credentials", {
-        email: formData.email,
-        password: formData.password,
-        redirect: false,
+      const response = await apiRequest("/auth/login", {
+        method: "POST",
+        body: JSON.stringify({
+          email: formData.email,
+          password: formData.password,
+        }),
       });
 
-      if (result?.error) {
+      if (!response.ok) {
         setError("Credenciais inválidas");
         return;
       }
 
-      // Verificar se o usuário é admin
-      const session = await getSession();
-      if (session?.user?.role === "ADMIN") {
+      const data = (await response.json()) as AuthLoginResponse;
+      saveAuthSession(data);
+
+      if (data.user.role === "ADMIN") {
         router.push("/admin");
       } else {
         router.push("/");
       }
-    } catch (loginError) {
+    } catch {
       setError("Erro ao fazer login");
     } finally {
       setLoading(false);

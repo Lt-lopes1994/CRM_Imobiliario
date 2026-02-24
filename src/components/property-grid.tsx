@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { PropertyCard } from "./property-card";
 import { PropertyFilters } from "./property-filters";
+import { getApiUrl } from "@/lib/api";
 
 interface Property {
   id: string;
@@ -34,6 +35,7 @@ export function PropertyGrid() {
     maxPrice: "",
     bedrooms: "",
     bathrooms: "",
+    state: "",
     city: "",
   });
 
@@ -49,9 +51,10 @@ export function PropertyGrid() {
           }
         });
 
-        const response = await fetch(
-          `/api/properties?${queryParams.toString()}`
-        );
+        const endpoint = queryParams.toString()
+          ? `properties?${queryParams.toString()}`
+          : "properties";
+        const response = await fetch(getApiUrl(endpoint));
         const data = await response.json();
         setProperties(data.properties || []);
       } catch (error) {

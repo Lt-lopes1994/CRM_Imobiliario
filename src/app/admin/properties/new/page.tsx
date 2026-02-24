@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
+import { apiRequest } from "@/lib/api";
 import {
   Home,
   MapPin,
@@ -35,8 +36,7 @@ const propertySchema = z.object({
     .optional(),
   salePrice: z.number().min(0, "Preço de venda deve ser positivo").optional(),
   rentPrice: z.number().min(0, "Preço de aluguel deve ser positivo").optional(),
-  propertyType: z.enum(["HOUSE", "APARTMENT", "COMMERCIAL", "LAND", "OTHER"]),
-  categoryId: z.string().min(1, "Categoria é obrigatória"),
+  propertyType: z.enum(["HOUSE", "APARTMENT", "COMMERCIAL", "LAND", "STUDIO"]),
 });
 
 type PropertyFormData = z.infer<typeof propertySchema>;
@@ -44,7 +44,6 @@ type PropertyFormData = z.infer<typeof propertySchema>;
 export default function NewPropertyPage() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
-  const [categories, setCategories] = useState([]);
 
   const {
     register,
@@ -54,30 +53,11 @@ export default function NewPropertyPage() {
     resolver: zodResolver(propertySchema),
   });
 
-  // Buscar categorias quando o componente carregar
-  useEffect(() => {
-    const fetchCategories = async () => {
-      try {
-        const response = await fetch("/api/categories");
-        if (response.ok) {
-          const data = await response.json();
-          setCategories(data);
-        }
-      } catch (error) {
-        console.error("Erro ao buscar categorias:", error);
-      }
-    };
-    fetchCategories();
-  }, []);
-
   const onSubmit = async (data: PropertyFormData) => {
     setLoading(true);
     try {
-      const response = await fetch("/api/admin/properties", {
+      const response = await apiRequest("/admin/properties", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
         body: JSON.stringify(data),
       });
 
@@ -122,8 +102,8 @@ export default function NewPropertyPage() {
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
         {/* Informações Básicas */}
         <div className="bg-white rounded-lg shadow-sm border p-6">
-          <h2 className="text-xl font-semibold mb-6 flex items-center gap-2">
-            <Home size={20} />
+          <h2 className="text-xl font-semibold mb-6 flex items-center gap-2 text-gray-900">
+            <Home size={20} className="text-blue-600" />
             Informações Básicas
           </h2>
 
@@ -175,33 +155,11 @@ export default function NewPropertyPage() {
                 <option value="APARTMENT">Apartamento</option>
                 <option value="COMMERCIAL">Comercial</option>
                 <option value="LAND">Terreno</option>
-                <option value="OTHER">Outro</option>
+                <option value="STUDIO">Estúdio</option>
               </select>
               {errors.propertyType && (
                 <p className="mt-1 text-sm text-red-600">
                   {errors.propertyType.message}
-                </p>
-              )}
-            </div>
-
-            <div>
-              <label className="block text-sm font-bold text-gray-900 mb-2">
-                Categoria
-              </label>
-              <select
-                {...register("categoryId")}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900 placeholder-gray-600"
-              >
-                <option value="">Selecione a categoria</option>
-                {categories.map((category: any) => (
-                  <option key={category.id} value={category.id}>
-                    {category.name}
-                  </option>
-                ))}
-              </select>
-              {errors.categoryId && (
-                <p className="mt-1 text-sm text-red-600">
-                  {errors.categoryId.message}
                 </p>
               )}
             </div>
@@ -210,8 +168,8 @@ export default function NewPropertyPage() {
 
         {/* Localização */}
         <div className="bg-white rounded-lg shadow-sm border p-6">
-          <h2 className="text-xl font-semibold mb-6 flex items-center gap-2">
-            <MapPin size={20} />
+          <h2 className="text-xl font-semibold mb-6 flex items-center gap-2 text-gray-900">
+            <MapPin size={20} className="text-blue-600" />
             Localização
           </h2>
 
@@ -288,8 +246,8 @@ export default function NewPropertyPage() {
 
         {/* Características */}
         <div className="bg-white rounded-lg shadow-sm border p-6">
-          <h2 className="text-xl font-semibold mb-6 flex items-center gap-2">
-            <Square size={20} />
+          <h2 className="text-xl font-semibold mb-6 flex items-center gap-2 text-gray-900">
+            <Square size={20} className="text-blue-600" />
             Características
           </h2>
 
@@ -374,8 +332,8 @@ export default function NewPropertyPage() {
 
         {/* Valores */}
         <div className="bg-white rounded-lg shadow-sm border p-6">
-          <h2 className="text-xl font-semibold mb-6 flex items-center gap-2">
-            <DollarSign size={20} />
+          <h2 className="text-xl font-semibold mb-6 flex items-center gap-2 text-gray-900">
+            <DollarSign size={20} className="text-blue-600" />
             Valores
           </h2>
 

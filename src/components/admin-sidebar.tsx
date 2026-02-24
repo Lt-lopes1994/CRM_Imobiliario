@@ -12,10 +12,14 @@ import {
   BarChart3,
   Menu,
   X,
+  UserCheck,
+  TrendingUp,
 } from "lucide-react";
 
 const menuItems = [
   { href: "/admin", label: "Dashboard", icon: Home },
+  { href: "/admin/leads", label: "Leads", icon: TrendingUp },
+  { href: "/admin/clients", label: "Clientes", icon: UserCheck },
   { href: "/admin/properties", label: "Imóveis", icon: Building },
   { href: "/admin/users", label: "Usuários", icon: Users },
   { href: "/admin/messages", label: "Mensagens", icon: MessageSquare },

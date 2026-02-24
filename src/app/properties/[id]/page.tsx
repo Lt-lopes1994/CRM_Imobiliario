@@ -2,7 +2,8 @@
 
 import { useState, useEffect } from "react";
 import { useParams, useRouter } from "next/navigation";
-import { useSession } from "next-auth/react";
+import { apiRequest } from "@/lib/api";
+import { isAuthenticated } from "@/lib/auth-client";
 import {
   Home,
   MapPin,
@@ -49,7 +50,6 @@ interface Property {
 export default function PropertyDetailPage() {
   const params = useParams();
   const router = useRouter();
-  const { data: session } = useSession();
   const [property, setProperty] = useState<Property | null>(null);
   const [loading, setLoading] = useState(true);
   const [showContactForm, setShowContactForm] = useState(false);
@@ -59,7 +59,7 @@ export default function PropertyDetailPage() {
   useEffect(() => {
     const fetchProperty = async () => {
       try {
-        const response = await fetch(`/api/properties/${params.id}`);
+        const response = await apiRequest(`/properties/${params.id}`);
         if (response.ok) {
           const data = await response.json();
           setProperty(data);
@@ -80,7 +80,7 @@ export default function PropertyDetailPage() {
   }, [params.id, router]);
 
   const handleSendMessage = async () => {
-    if (!session) {
+    if (!isAuthenticated()) {
       router.push("/login");
       return;
     }
@@ -92,11 +92,8 @@ export default function PropertyDetailPage() {
 
     setSending(true);
     try {
-      const response = await fetch("/api/messages", {
+      const response = await apiRequest("/messages", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
         body: JSON.stringify({
           propertyId: property?.id,
           message: message.trim(),
@@ -259,7 +256,7 @@ export default function PropertyDetailPage() {
                 </div>
                 <span
                   className={`px-3 py-1 rounded-full text-sm font-medium ${getStatusColor(
-                    property.status
+                    property.status,
                   )}`}
                 >
                   {getStatusText(property.status)}

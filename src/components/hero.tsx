@@ -1,16 +1,87 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Search, MapPin, Home, Building } from "lucide-react";
+
+interface UFOption {
+  id: number;
+  sigla: string;
+  nome: string;
+}
+
+interface CityOption {
+  id: number;
+  nome: string;
+}
 
 export function Hero() {
   const [searchTerm, setSearchTerm] = useState("");
-  const [location, setLocation] = useState("");
+  const [state, setState] = useState("");
+  const [city, setCity] = useState("");
+  const [ufs, setUfs] = useState<UFOption[]>([]);
+  const [cities, setCities] = useState<CityOption[]>([]);
+  const [loadingUfs, setLoadingUfs] = useState(false);
+  const [loadingCities, setLoadingCities] = useState(false);
+
+  useEffect(() => {
+    const loadUfs = async () => {
+      try {
+        setLoadingUfs(true);
+        const response = await fetch(
+          "https://servicodados.ibge.gov.br/api/v1/localidades/estados?orderBy=nome",
+        );
+
+        if (!response.ok) {
+          throw new Error("Falha ao carregar UFs");
+        }
+
+        const data: UFOption[] = await response.json();
+        setUfs(data);
+      } catch (error) {
+        console.error("Erro ao carregar UFs:", error);
+      } finally {
+        setLoadingUfs(false);
+      }
+    };
+
+    loadUfs();
+  }, []);
+
+  useEffect(() => {
+    const loadCities = async () => {
+      if (!state) {
+        setCities([]);
+        setCity("");
+        return;
+      }
+
+      try {
+        setLoadingCities(true);
+        const response = await fetch(
+          `https://servicodados.ibge.gov.br/api/v1/localidades/estados/${state}/municipios`,
+        );
+
+        if (!response.ok) {
+          throw new Error("Falha ao carregar cidades");
+        }
+
+        const data: CityOption[] = await response.json();
+        setCities(data);
+      } catch (error) {
+        console.error("Erro ao carregar cidades:", error);
+        setCities([]);
+      } finally {
+        setLoadingCities(false);
+      }
+    };
+
+    loadCities();
+  }, [state]);
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
     // Implementar lógica de busca
-    console.log("Busca por:", searchTerm, "em", location);
+    console.log("Busca por:", searchTerm, "UF:", state, "Cidade:", city);
   };
 
   return (
@@ -31,7 +102,7 @@ export function Hero() {
             onSubmit={handleSearch}
             className="bg-white rounded-lg shadow-lg p-6"
           >
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
               <div className="relative">
                 <Search
                   className="absolute left-3 top-3 text-gray-400"
@@ -50,13 +121,49 @@ export function Hero() {
                   className="absolute left-3 top-3 text-gray-400"
                   size={20}
                 />
-                <input
-                  type="text"
-                  placeholder="Localização"
-                  value={location}
-                  onChange={(e) => setLocation(e.target.value)}
-                  className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900"
+                <select
+                  value={state}
+                  onChange={(e) => {
+                    setState(e.target.value);
+                    setCity("");
+                  }}
+                  className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
+                  disabled={loadingUfs}
+                >
+                  <option value="">
+                    {loadingUfs ? "Carregando UFs..." : "UF"}
+                  </option>
+                  {ufs.map((uf) => (
+                    <option key={uf.id} value={uf.sigla}>
+                      {uf.sigla}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div className="relative">
+                <MapPin
+                  className="absolute left-3 top-3 text-gray-400"
+                  size={20}
                 />
+                <select
+                  value={city}
+                  onChange={(e) => setCity(e.target.value)}
+                  className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
+                  disabled={!state || loadingCities}
+                >
+                  <option value="">
+                    {!state
+                      ? "Cidade"
+                      : loadingCities
+                        ? "Carregando cidades..."
+                        : "Cidade"}
+                  </option>
+                  {cities.map((cityOption) => (
+                    <option key={cityOption.id} value={cityOption.nome}>
+                      {cityOption.nome}
+                    </option>
+                  ))}
+                </select>
               </div>
               <button
                 type="submit"
@@ -72,21 +179,21 @@ export function Hero() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-16">
           <div className="text-center">
             <div className="inline-flex items-center justify-center w-16 h-16 bg-white bg-opacity-20 rounded-full mb-4">
-              <Home size={24} />
+              <Home size={24} className="text-black" />
             </div>
             <h3 className="text-2xl font-bold mb-2">500+</h3>
             <p className="opacity-90">Imóveis Disponíveis</p>
           </div>
           <div className="text-center">
             <div className="inline-flex items-center justify-center w-16 h-16 bg-white bg-opacity-20 rounded-full mb-4">
-              <Building size={24} />
+              <Building size={24} className="text-black" />
             </div>
             <h3 className="text-2xl font-bold mb-2">50+</h3>
             <p className="opacity-90">Construtoras Parceiras</p>
           </div>
           <div className="text-center">
             <div className="inline-flex items-center justify-center w-16 h-16 bg-white bg-opacity-20 rounded-full mb-4">
-              <MapPin size={24} />
+              <MapPin size={24} className="text-black" />
             </div>
             <h3 className="text-2xl font-bold mb-2">10+</h3>
             <p className="opacity-90">Cidades Atendidas</p>
