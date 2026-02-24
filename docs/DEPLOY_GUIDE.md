@@ -69,8 +69,7 @@ git push origin main
 
 ```env
 DATABASE_URL="postgresql://user:pass@host:5432/db"
-NEXTAUTH_URL="https://seu-dominio.vercel.app"
-NEXTAUTH_SECRET="sua-chave-secreta-aqui"
+NEXT_PUBLIC_API_URL="https://crm-imobiliario-back.onrender.com/v1"
 UPLOADTHING_SECRET="sua-chave-uploadthing"
 UPLOADTHING_APP_ID="seu-app-id-uploadthing"
 ```
@@ -90,6 +89,7 @@ npx prisma db seed
 ### ✅ **Implementado**
 
 - [x] Autenticação com NextAuth
+- [x] Autenticação JWT via backend NestJS
 - [x] Proteção de rotas admin
 - [x] Validação de dados
 - [x] Hash de senhas com bcrypt
@@ -175,11 +175,11 @@ npx prisma db seed
 # Certificar que DATABASE_URL está correta
 ```
 
-### ❗ **Problema: NextAuth não funciona**
+### ❗ **Problema: Login JWT não funciona**
 
 ```bash
-# Solução: Verificar NEXTAUTH_SECRET e NEXTAUTH_URL
-# URL deve ser o domínio da Vercel
+# Solução: Verificar NEXT_PUBLIC_API_URL
+# Confirmar se backend Nest está online e com CORS liberado
 ```
 
 ### ❗ **Problema: Prisma Client não encontrado**
@@ -221,7 +221,6 @@ npx prisma db seed
 - [Vercel Dashboard](https://vercel.com/dashboard)
 - [Neon Database](https://neon.tech)
 - [Supabase](https://supabase.com)
-- [NextAuth.js Docs](https://next-auth.js.org)
 - [Prisma Docs](https://www.prisma.io/docs)
 
 **A aplicação está 100% pronta para produção! 🚀**

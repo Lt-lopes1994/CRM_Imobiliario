@@ -1,17 +1,23 @@
 "use client";
 
-import { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
-import { X, UserPlus } from 'lucide-react';
-import { CreateLeadDto, LeadSource, PropertyType, LEAD_SOURCE_LABELS, PROPERTY_TYPE_LABELS } from '@/types/crm';
-import { useLeads } from '@/hooks/useCRM';
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+import { X, UserPlus } from "lucide-react";
+import {
+  CreateLeadDto,
+  LeadSource,
+  PropertyType,
+  LEAD_SOURCE_LABELS,
+  PROPERTY_TYPE_LABELS,
+} from "@/types/crm";
+import { useLeads } from "@/hooks/useCRM";
 
 const createLeadSchema = z.object({
-  name: z.string().min(1, 'Nome é obrigatório'),
-  phone: z.string().min(10, 'Telefone inválido'),
-  email: z.string().email('Email inválido'),
+  name: z.string().min(1, "Nome é obrigatório"),
+  phone: z.string().min(10, "Telefone inválido"),
+  email: z.string().email("Email inválido"),
   source: z.nativeEnum(LeadSource),
   interestType: z.nativeEnum(PropertyType),
   budgetMin: z.number().min(0).optional(),
@@ -28,7 +34,11 @@ interface CreateLeadModalProps {
   onSuccess?: () => void;
 }
 
-export default function CreateLeadModal({ isOpen, onClose, onSuccess }: CreateLeadModalProps) {
+export default function CreateLeadModal({
+  isOpen,
+  onClose,
+  onSuccess,
+}: CreateLeadModalProps) {
   const { createLead, loading } = useLeads();
   const {
     register,
@@ -46,7 +56,7 @@ export default function CreateLeadModal({ isOpen, onClose, onSuccess }: CreateLe
       onClose();
       onSuccess?.();
     } catch (err) {
-      console.error('Erro ao criar lead:', err);
+      console.error("Erro ao criar lead:", err);
     }
   };
 
@@ -78,20 +88,24 @@ export default function CreateLeadModal({ isOpen, onClose, onSuccess }: CreateLe
         <form onSubmit={handleSubmit(onSubmit)} className="p-6 space-y-6">
           {/* Informações Básicas */}
           <div>
-            <h3 className="text-lg font-semibold mb-4 text-gray-900">Informações Básicas</h3>
+            <h3 className="text-lg font-semibold mb-4 text-gray-900">
+              Informações Básicas
+            </h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
                   Nome <span className="text-red-500">*</span>
                 </label>
                 <input
-                  {...register('name')}
+                  {...register("name")}
                   type="text"
                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900"
                   placeholder="João Silva"
                 />
                 {errors.name && (
-                  <p className="mt-1 text-sm text-red-600">{errors.name.message}</p>
+                  <p className="mt-1 text-sm text-red-600">
+                    {errors.name.message}
+                  </p>
                 )}
               </div>
 
@@ -100,13 +114,15 @@ export default function CreateLeadModal({ isOpen, onClose, onSuccess }: CreateLe
                   Telefone <span className="text-red-500">*</span>
                 </label>
                 <input
-                  {...register('phone')}
+                  {...register("phone")}
                   type="tel"
                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900"
                   placeholder="11999999999"
                 />
                 {errors.phone && (
-                  <p className="mt-1 text-sm text-red-600">{errors.phone.message}</p>
+                  <p className="mt-1 text-sm text-red-600">
+                    {errors.phone.message}
+                  </p>
                 )}
               </div>
 
@@ -115,13 +131,15 @@ export default function CreateLeadModal({ isOpen, onClose, onSuccess }: CreateLe
                   Email <span className="text-red-500">*</span>
                 </label>
                 <input
-                  {...register('email')}
+                  {...register("email")}
                   type="email"
                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900"
                   placeholder="joao@email.com"
                 />
                 {errors.email && (
-                  <p className="mt-1 text-sm text-red-600">{errors.email.message}</p>
+                  <p className="mt-1 text-sm text-red-600">
+                    {errors.email.message}
+                  </p>
                 )}
               </div>
 
@@ -130,7 +148,7 @@ export default function CreateLeadModal({ isOpen, onClose, onSuccess }: CreateLe
                   Origem <span className="text-red-500">*</span>
                 </label>
                 <select
-                  {...register('source')}
+                  {...register("source")}
                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900"
                 >
                   {Object.entries(LEAD_SOURCE_LABELS).map(([value, label]) => (
@@ -146,14 +164,16 @@ export default function CreateLeadModal({ isOpen, onClose, onSuccess }: CreateLe
                   Tipo de Imóvel <span className="text-red-500">*</span>
                 </label>
                 <select
-                  {...register('interestType')}
+                  {...register("interestType")}
                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900"
                 >
-                  {Object.entries(PROPERTY_TYPE_LABELS).map(([value, label]) => (
-                    <option key={value} value={value}>
-                      {label}
-                    </option>
-                  ))}
+                  {Object.entries(PROPERTY_TYPE_LABELS).map(
+                    ([value, label]) => (
+                      <option key={value} value={value}>
+                        {label}
+                      </option>
+                    ),
+                  )}
                 </select>
               </div>
             </div>
@@ -161,14 +181,16 @@ export default function CreateLeadModal({ isOpen, onClose, onSuccess }: CreateLe
 
           {/* Detalhes do Interesse */}
           <div>
-            <h3 className="text-lg font-semibold mb-4 text-gray-900">Detalhes do Interesse</h3>
+            <h3 className="text-lg font-semibold mb-4 text-gray-900">
+              Detalhes do Interesse
+            </h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
                   Orçamento Mínimo (R$)
                 </label>
                 <input
-                  {...register('budgetMin', { valueAsNumber: true })}
+                  {...register("budgetMin", { valueAsNumber: true })}
                   type="number"
                   step="1000"
                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900"
@@ -181,7 +203,7 @@ export default function CreateLeadModal({ isOpen, onClose, onSuccess }: CreateLe
                   Orçamento Máximo (R$)
                 </label>
                 <input
-                  {...register('budgetMax', { valueAsNumber: true })}
+                  {...register("budgetMax", { valueAsNumber: true })}
                   type="number"
                   step="1000"
                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900"
@@ -194,7 +216,7 @@ export default function CreateLeadModal({ isOpen, onClose, onSuccess }: CreateLe
                   Cidade de Preferência
                 </label>
                 <input
-                  {...register('cityPreference')}
+                  {...register("cityPreference")}
                   type="text"
                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900"
                   placeholder="São Paulo"
@@ -206,7 +228,7 @@ export default function CreateLeadModal({ isOpen, onClose, onSuccess }: CreateLe
                   Observações
                 </label>
                 <textarea
-                  {...register('notes')}
+                  {...register("notes")}
                   rows={3}
                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900"
                   placeholder="Informações adicionais sobre o lead..."
@@ -229,7 +251,7 @@ export default function CreateLeadModal({ isOpen, onClose, onSuccess }: CreateLe
               disabled={loading}
               className="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {loading ? 'Criando...' : 'Criar Lead'}
+              {loading ? "Criando..." : "Criar Lead"}
             </button>
           </div>
         </form>

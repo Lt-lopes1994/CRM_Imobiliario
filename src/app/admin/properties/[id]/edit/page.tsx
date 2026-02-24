@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { ArrowLeft, Home, Save } from "lucide-react";
+import { apiRequest } from "@/lib/api";
 
 const optionalNumber = z.preprocess((value) => {
   if (value === "" || value === null || value === undefined) {
@@ -34,23 +35,16 @@ const propertySchema = z.object({
   rentPrice: optionalNumber,
   propertyType: z.enum(["HOUSE", "APARTMENT", "COMMERCIAL", "LAND", "STUDIO"]),
   status: z.enum(["AVAILABLE", "SOLD", "RENTED", "PENDING"]),
-  categoryId: z.string().min(1, "Categoria é obrigatória"),
 });
 
 type PropertyFormInput = z.input<typeof propertySchema>;
 type PropertyFormData = z.output<typeof propertySchema>;
-
-interface Category {
-  id: string;
-  name: string;
-}
 
 export default function EditPropertyPage() {
   const params = useParams<{ id: string }>();
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [loadingData, setLoadingData] = useState(true);
-  const [categories, setCategories] = useState<Category[]>([]);
 
   const {
     register,
@@ -64,19 +58,26 @@ export default function EditPropertyPage() {
   useEffect(() => {
     const loadData = async () => {
       try {
-        const [categoriesResponse, propertyResponse] = await Promise.all([
-          fetch("/api/categories"),
-          fetch(`/api/admin/properties/${params.id}`),
-        ]);
+        console.log("Carregando dados...");
+        const propertyResponse = await apiRequest(
+          `/admin/properties/${params.id}`,
+        );
 
-        if (!categoriesResponse.ok || !propertyResponse.ok) {
-          throw new Error("Falha ao carregar dados");
+        if (!propertyResponse.ok) {
+          const errorText = await propertyResponse.text();
+          console.error(
+            "Erro ao buscar imóvel:",
+            propertyResponse.status,
+            errorText,
+          );
+          throw new Error(
+            `Falha ao carregar imóvel: ${propertyResponse.status}`,
+          );
         }
 
-        const categoriesData: Category[] = await categoriesResponse.json();
         const propertyData = await propertyResponse.json();
 
-        setCategories(categoriesData);
+        console.log("Imóvel carregado:", propertyData);
 
         reset({
           title: propertyData.title,
@@ -94,7 +95,6 @@ export default function EditPropertyPage() {
           rentPrice: propertyData.rentPrice ?? undefined,
           propertyType: propertyData.propertyType,
           status: propertyData.status,
-          categoryId: propertyData.categoryId,
         });
       } catch {
         router.push("/admin/properties");
@@ -112,11 +112,8 @@ export default function EditPropertyPage() {
     setLoading(true);
 
     try {
-      const response = await fetch(`/api/admin/properties/${params.id}`, {
+      const response = await apiRequest(`/admin/properties/${params.id}`, {
         method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
         body: JSON.stringify(data),
       });
 
@@ -165,7 +162,9 @@ export default function EditPropertyPage() {
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
         <div className="bg-white rounded-lg shadow-sm border p-6">
-          <h2 className="text-xl font-semibold mb-6">Informações Básicas</h2>
+          <h2 className="text-xl font-semibold mb-6 text-gray-900">
+            Informações Básicas
+          </h2>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="md:col-span-2">
@@ -230,33 +229,11 @@ export default function EditPropertyPage() {
                 <option value="SOLD">Vendido</option>
               </select>
             </div>
-
-            <div>
-              <label className="block text-sm font-bold text-gray-900 mb-2">
-                Categoria
-              </label>
-              <select
-                {...register("categoryId")}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900"
-              >
-                <option value="">Selecione a categoria</option>
-                {categories.map((category) => (
-                  <option key={category.id} value={category.id}>
-                    {category.name}
-                  </option>
-                ))}
-              </select>
-              {errors.categoryId && (
-                <p className="mt-1 text-sm text-red-600">
-                  {errors.categoryId.message}
-                </p>
-              )}
-            </div>
           </div>
         </div>
 
         <div className="bg-white rounded-lg shadow-sm border p-6">
-          <h2 className="text-xl font-semibold mb-6">
+          <h2 className="text-xl font-semibold mb-6 text-gray-900">
             Localização e Características
           </h2>
 
@@ -389,7 +366,7 @@ export default function EditPropertyPage() {
         </div>
 
         <div className="bg-white rounded-lg shadow-sm border p-6">
-          <h2 className="text-xl font-semibold mb-6">Valores</h2>
+          <h2 className="text-xl font-semibold mb-6 text-gray-900">Valores</h2>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div>

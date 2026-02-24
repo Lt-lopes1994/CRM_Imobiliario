@@ -25,6 +25,7 @@
 ## 🚀 Início Rápido
 
 ### Requisitos
+
 - Node.js 20+
 - PostgreSQL 15+ (ou Neon)
 - npm ou yarn
@@ -50,6 +51,7 @@ npm run dev
 ✅ Acesse `http://localhost:3000`
 
 #### Contas de Teste
+
 ```
 👤 Admin:  admin@crm.com / admin123
 👤 User:   user@crm.com  / user123
@@ -89,32 +91,36 @@ npm run dev
 ## 🛠️ Tecnologias
 
 ### Frontend
-| Tecnologia | Versão | Uso |
-|-----------|--------|-----|
-| Next.js | 15.3.8 | Framework React full-stack |
-| React | 19.0.0 | UI Components |
-| TypeScript | 5 | Type safety |
-| Tailwind CSS | 4 | Styling |
-| React Hook Form | 7.60 | Gerenciamento de forms |
-| Zod | 4.0.5 | Validação de schemas |
+
+| Tecnologia      | Versão | Uso                        |
+| --------------- | ------ | -------------------------- |
+| Next.js         | 15.3.8 | Framework React full-stack |
+| React           | 19.0.0 | UI Components              |
+| TypeScript      | 5      | Type safety                |
+| Tailwind CSS    | 4      | Styling                    |
+| React Hook Form | 7.60   | Gerenciamento de forms     |
+| Zod             | 4.0.5  | Validação de schemas       |
 
 ### Backend
-| Tecnologia | Versão | Uso |
-|-----------|--------|-----|
-| NextAuth.js | 4.24.11 | Autenticação |
-| Prisma ORM | 6.11.1 | Database client |
-| PostgreSQL | 15 | Banco de dados |
-| Neon | - | Database cloud |
+
+| Tecnologia  | Versão  | Uso             |
+| ----------- | ------- | --------------- |
+| NextAuth.js | 4.24.11 | Autenticação    |
+| Prisma ORM  | 6.11.1  | Database client |
+| PostgreSQL  | 15      | Banco de dados  |
+| Neon        | -       | Database cloud  |
 
 ### Testes & DevOps
-| Tecnologia | Versão | Uso |
-|-----------|--------|-----|
-| Cypress | 15.10.0 | E2E testing |
-| Allure Report | 2.x | Test reporting |
-| GitHub Actions | - | CI/CD |
-| ESLint | 9 | Code linting |
+
+| Tecnologia     | Versão  | Uso            |
+| -------------- | ------- | -------------- |
+| Cypress        | 15.10.0 | E2E testing    |
+| Allure Report  | 2.x     | Test reporting |
+| GitHub Actions | -       | CI/CD          |
+| ESLint         | 9       | Code linting   |
 
 ### Hospedagem
+
 ```
 Frontend:  Vercel (Next.js otimizado)
 Backend:   NestJS (repositório separado)
@@ -176,6 +182,7 @@ CDN:       Vercel Edge Network
 ```
 
 ### Migrations Strategy
+
 1. ✅ **Fase Atual**: Frontend completo, Next.js API Routes
 2. ⏳ **Sprint 1-2**: Backend NestJS em paralelo
 3. ⏳ **Sprint 3**: Frontend redireciona para NestJS
@@ -255,6 +262,7 @@ cypress/
 ### Deploy na Vercel (Frontend)
 
 #### Pré-requisito
+
 ```bash
 # 1. Criar conta em https://vercel.com
 # 2. Conectar repositório GitHub
@@ -262,15 +270,16 @@ cypress/
 ```
 
 #### Variáveis Necessárias
+
 ```env
 DATABASE_URL=postgresql://user:password@host/db
-NEXTAUTH_SECRET=seu-secret-aleatorio-aqui
-NEXTAUTH_URL=https://seu-dominio.com
+NEXT_PUBLIC_API_URL=https://crm-imobiliario-back.onrender.com/v1
 UPLOADTHING_SECRET=seu-uploadthing-secret
 UPLOADTHING_APP_ID=seu-app-id
 ```
 
 #### Deploy (Automático)
+
 ```bash
 # 1. Push para main
 git push origin main
@@ -282,6 +291,7 @@ git push origin main
 ```
 
 #### Verificações Pré-Deploy
+
 ```bash
 npm run build    # Compilar com sucesso
 npm run lint     # 0 warnings/errors
@@ -293,6 +303,7 @@ npm run test:e2e # Testes passando
 **Veja**: [CRM_Imobiliario_Backend](https://github.com/Lt-lopes1994/CRM_Imobiliario_Backend)
 
 Deploy recomendado:
+
 - 🚀 Railway.app (simples)
 - 🚀 Render (alternativa)
 - 🚀 DigitalOcean (mais controle)
@@ -353,6 +364,7 @@ npx prisma db execute --stdin
 ## 🗺️ Roadmap
 
 ### ✅ Fase 1: Frontend (Completo - 23 fev 2026)
+
 - ✅ Pages (Home, Login, Register, Admin, Properties)
 - ✅ Components (Header, Footer, Cards, Forms)
 - ✅ Autenticação (NextAuth.js JWT)
@@ -363,6 +375,7 @@ npx prisma db execute --stdin
 - ✅ CI/CD (GitHub Actions)
 
 ### 📦 Fase 2: Backend NestJS (Em Paralelo)
+
 - ⏳ Estrutura de módulos escalável
 - ⏳ AuthModule com JWT
 - ⏳ PropertiesModule CRUD
@@ -374,12 +387,14 @@ npx prisma db execute --stdin
 - ⏳ Documentação Swagger
 
 ### 🔄 Fase 3: Integração (Q1 2026)
+
 - ⏳ Frontend redireciona para NestJS API
 - ⏳ Remover Next.js API Routes
 - ⏳ Login integrado com NestJS
 - ⏳ Sincronizar autenticação
 
 ### 🎯 Fase 4: Features Avançadas (Q2 2026)
+
 - ⏳ Favoritos de imóveis
 - ⏳ Sistema de reviews
 - ⏳ Notificações email
@@ -389,6 +404,7 @@ npx prisma db execute --stdin
 - ⏳ Chat em tempo real (WebSocket)
 
 ### 🚀 Fase 5: Performance & Scale (Q3 2026)
+
 - ⏳ Redis para cache
 - ⏳ Message Queue (Bull/RabbitMQ)
 - ⏳ Search engine (Elasticsearch)
@@ -400,15 +416,15 @@ npx prisma db execute --stdin
 
 ## 📚 Documentação
 
-| Tipo | Arquivo | Descrição |
-|------|---------|-----------|
-| 🚀 Início Rápido | [docs/QUICK_START.md](./docs/QUICK_START.md) | Setup local em 3 passos |
-| 🧪 Testes | [docs/TESTING_GUIDE.md](./docs/TESTING_GUIDE.md) | Guia prático de testes |
-| 📚 Referência | [docs/CYPRESS_TESTING.md](./docs/CYPRESS_TESTING.md) | Documentação técnica Cypress |
-| 🚢 Deploy | [docs/DEPLOY_GUIDE.md](./docs/DEPLOY_GUIDE.md) | Deploy para Vercel |
-| 📊 Status | [docs/STATUS.md](./docs/STATUS.md) | Status atual do projeto |
-| 🔧 Backend | [docs/NESTJS_BACKEND_ROADMAP.md](./docs/NESTJS_BACKEND_ROADMAP.md) | Plano NestJS |
-| 📖 Índice | [docs/INDEX.md](./docs/INDEX.md) | **Índice completo de documentação →** |
+| Tipo             | Arquivo                                                            | Descrição                             |
+| ---------------- | ------------------------------------------------------------------ | ------------------------------------- |
+| 🚀 Início Rápido | [docs/QUICK_START.md](./docs/QUICK_START.md)                       | Setup local em 3 passos               |
+| 🧪 Testes        | [docs/TESTING_GUIDE.md](./docs/TESTING_GUIDE.md)                   | Guia prático de testes                |
+| 📚 Referência    | [docs/CYPRESS_TESTING.md](./docs/CYPRESS_TESTING.md)               | Documentação técnica Cypress          |
+| 🚢 Deploy        | [docs/DEPLOY_GUIDE.md](./docs/DEPLOY_GUIDE.md)                     | Deploy para Vercel                    |
+| 📊 Status        | [docs/STATUS.md](./docs/STATUS.md)                                 | Status atual do projeto               |
+| 🔧 Backend       | [docs/NESTJS_BACKEND_ROADMAP.md](./docs/NESTJS_BACKEND_ROADMAP.md) | Plano NestJS                          |
+| 📖 Índice        | [docs/INDEX.md](./docs/INDEX.md)                                   | **Índice completo de documentação →** |
 
 ---
 
@@ -417,22 +433,26 @@ npx prisma db execute --stdin
 ### Passos para Contribuir
 
 1. **Fork** o repositório
+
 ```bash
 # Clique em "Fork" no GitHub
 ```
 
 2. **Clone** seu fork
+
 ```bash
 git clone https://github.com/seu-usuario/CRM_Imobiliario.git
 cd CRM_Imobiliario
 ```
 
 3. **Crie uma branch** para sua feature
+
 ```bash
 git checkout -b feature/sua-funcionalidade
 ```
 
 4. **Faça as mudanças** e teste
+
 ```bash
 npm run lint
 npm run test:e2e:ui
@@ -440,16 +460,19 @@ npm run build
 ```
 
 5. **Commit** com mensagem clara
+
 ```bash
 git commit -m "feat: adiciona nova funcionalidade X"
 ```
 
 6. **Push** para seu fork
+
 ```bash
 git push origin feature/sua-funcionalidade
 ```
 
 7. **Abra um Pull Request** explicando as mudanças
+
 ```
 Título: feat: descrição breve
 Descrição: expliquem o que foi feito e por quê
@@ -480,11 +503,13 @@ chore:    dependências, config
 ## 🐛 Suporte
 
 ### Issues
+
 - 🐛 [Reportar Bug](https://github.com/Lt-lopes1994/CRM_Imobiliario/issues/new?labels=bug)
 - 💡 [Sugerir Feature](https://github.com/Lt-lopes1994/CRM_Imobiliario/issues/new?labels=enhancement)
 - 📚 [Fazer Pergunta](https://github.com/Lt-lopes1994/CRM_Imobiliario/discussions)
 
 ### Recursos
+
 - 📖 [Documentação Completa](./CYPRESS_TESTING.md)
 - 🚀 [Quick Start](./QUICK_START.md)
 - 🧪 [Guia de Testes](./TESTING_GUIDE.md)
@@ -500,6 +525,7 @@ Este projeto está sob a licença MIT. Veja [LICENSE](./LICENSE) para detalhes.
 ## 👨‍💻 Autor
 
 **Bruno Lopes**
+
 - GitHub: [@Lt-lopes1994](https://github.com/Lt-lopes1994)
 - Email: seu-email@example.com
 

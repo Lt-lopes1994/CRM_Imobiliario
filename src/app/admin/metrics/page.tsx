@@ -1,9 +1,15 @@
 "use client";
 
-import { useEffect, useState } from 'react';
-import { BarChart3, Users, TrendingUp, CheckCircle, XCircle } from 'lucide-react';
-import { useMetrics } from '@/hooks/useCRM';
-import { MetricsOverview, LEAD_STAGE_LABELS } from '@/types/crm';
+import { useEffect, useState } from "react";
+import {
+  BarChart3,
+  Users,
+  TrendingUp,
+  CheckCircle,
+  XCircle,
+} from "lucide-react";
+import { useMetrics } from "@/hooks/useCRM";
+import { MetricsOverview, LEAD_STAGE_LABELS } from "@/types/crm";
 
 export default function MetricsPage() {
   const { getMetricsOverview, loading, error } = useMetrics();
@@ -18,7 +24,7 @@ export default function MetricsPage() {
       const data = await getMetricsOverview();
       setMetrics(data);
     } catch (err) {
-      console.error('Erro ao carregar métricas:', err);
+      console.error("Erro ao carregar métricas:", err);
     }
   };
 
@@ -45,28 +51,28 @@ export default function MetricsPage() {
 
   const kpiCards = [
     {
-      title: 'Total de Leads',
+      title: "Total de Leads",
       value: metrics.totalLeads,
       icon: Users,
-      color: 'bg-blue-500',
+      color: "bg-blue-500",
     },
     {
-      title: 'Leads Ganhos',
+      title: "Leads Ganhos",
       value: metrics.wonLeads,
       icon: CheckCircle,
-      color: 'bg-green-500',
+      color: "bg-green-500",
     },
     {
-      title: 'Taxa de Conversão',
+      title: "Taxa de Conversão",
       value: `${metrics.conversionRate.toFixed(1)}%`,
       icon: TrendingUp,
-      color: 'bg-purple-500',
+      color: "bg-purple-500",
     },
     {
-      title: 'Sessões de Triagem',
+      title: "Sessões de Triagem",
       value: metrics.qualifiedSessions,
       icon: BarChart3,
-      color: 'bg-yellow-500',
+      color: "bg-yellow-500",
     },
   ];
 
@@ -92,7 +98,9 @@ export default function MetricsPage() {
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-sm text-gray-600 mb-1">{card.title}</p>
-                  <p className="text-3xl font-bold text-gray-900">{card.value}</p>
+                  <p className="text-3xl font-bold text-gray-900">
+                    {card.value}
+                  </p>
                 </div>
                 <div className={`p-3 rounded-full ${card.color}`}>
                   <Icon className="text-white" size={24} />
@@ -105,13 +113,14 @@ export default function MetricsPage() {
 
       {/* Leads por Estágio */}
       <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-        <h2 className="text-xl font-bold text-gray-900 mb-6">Leads por Estágio</h2>
-        
+        <h2 className="text-xl font-bold text-gray-900 mb-6">
+          Leads por Estágio
+        </h2>
+
         <div className="space-y-4">
           {Object.entries(metrics.leadsByStage).map(([stage, count]) => {
-            const percentage = metrics.totalLeads > 0 
-              ? (count / metrics.totalLeads) * 100 
-              : 0;
+            const percentage =
+              metrics.totalLeads > 0 ? (count / metrics.totalLeads) * 100 : 0;
 
             return (
               <div key={stage}>
@@ -138,7 +147,9 @@ export default function MetricsPage() {
       {/* Insights */}
       <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6">
         <div className="bg-green-50 border border-green-200 rounded-lg p-6">
-          <h3 className="font-semibold text-green-900 mb-2">✅ Pontos Positivos</h3>
+          <h3 className="font-semibold text-green-900 mb-2">
+            ✅ Pontos Positivos
+          </h3>
           <ul className="space-y-2 text-sm text-green-800">
             {metrics.conversionRate >= 20 && (
               <li>• Excelente taxa de conversão acima de 20%</li>
@@ -147,16 +158,20 @@ export default function MetricsPage() {
               <li>• {metrics.wonLeads} leads convertidos em clientes</li>
             )}
             {metrics.qualifiedSessions > 0 && (
-              <li>• {metrics.qualifiedSessions} sessões de triagem realizadas</li>
+              <li>
+                • {metrics.qualifiedSessions} sessões de triagem realizadas
+              </li>
             )}
             {metrics.totalLeads > 50 && (
-              <li>• Boa geração de  leads com {metrics.totalLeads} registros</li>
+              <li>• Boa geração de leads com {metrics.totalLeads} registros</li>
             )}
           </ul>
         </div>
 
         <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-6">
-          <h3 className="font-semibold text-yellow-900 mb-2">⚠️ Oportunidades de Melhoria</h3>
+          <h3 className="font-semibold text-yellow-900 mb-2">
+            ⚠️ Oportunidades de Melhoria
+          </h3>
           <ul className="space-y-2 text-sm text-yellow-800">
             {metrics.conversionRate < 10 && (
               <li>• Taxa de conversão baixa - foque em qualificação</li>

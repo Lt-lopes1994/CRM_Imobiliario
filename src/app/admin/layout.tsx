@@ -1,37 +1,36 @@
 "use client";
 
-import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { AdminSidebar } from "@/components/admin-sidebar";
 import { AdminHeader } from "@/components/admin-header";
+import { getCurrentUser, isAuthenticated } from "@/lib/auth-client";
 
 export default function AdminLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const { data: session, status } = useSession();
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    if (status === "loading") return;
-
-    if (!session) {
+    if (!isAuthenticated()) {
       router.push("/login");
       return;
     }
 
-    if (session.user.role !== "ADMIN") {
+    const user = getCurrentUser();
+
+    if (!user || user.role !== "ADMIN") {
       router.push("/");
       return;
     }
 
     setIsLoading(false);
-  }, [session, status, router]);
+  }, [router]);
 
-  if (isLoading || status === "loading") {
+  if (isLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-600"></div>

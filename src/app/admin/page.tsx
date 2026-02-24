@@ -8,6 +8,7 @@ import {
   TrendingUp,
   DollarSign,
 } from "lucide-react";
+import { apiRequest } from "@/lib/api";
 
 interface DashboardStats {
   totalProperties: number;
@@ -55,9 +56,22 @@ export default function AdminDashboard() {
 
   const fetchDashboardData = async () => {
     try {
-      const response = await fetch("/api/admin/dashboard");
+      const response = await apiRequest("/admin/dashboard");
       const data = await response.json();
-      setStats(data);
+
+      // Garantir valores padrão para evitar erros com undefined
+      setStats({
+        totalProperties: data.totalProperties ?? 0,
+        totalUsers: data.totalUsers ?? 0,
+        totalMessages: data.totalMessages ?? 0,
+        totalRevenue: data.totalRevenue ?? 0,
+        propertiesThisMonth: data.propertiesThisMonth ?? 0,
+        usersThisMonth: data.usersThisMonth ?? 0,
+        messagesThisMonth: data.messagesThisMonth ?? 0,
+        revenueThisMonth: data.revenueThisMonth ?? 0,
+        recentProperties: data.recentProperties ?? [],
+        recentMessages: data.recentMessages ?? [],
+      });
     } catch (error) {
       console.error("Erro ao carregar dados do dashboard:", error);
     } finally {
@@ -144,7 +158,7 @@ export default function AdminDashboard() {
                   <p className="text-2xl font-bold text-gray-900">
                     {typeof card.value === "string"
                       ? card.value
-                      : card.value.toLocaleString()}
+                      : (card.value ?? 0).toLocaleString()}
                   </p>
                   <p className="text-sm text-green-600 mt-1">
                     {card.changeText}

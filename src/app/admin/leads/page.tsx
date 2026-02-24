@@ -1,11 +1,11 @@
 "use client";
 
-import { useState, useEffect } from 'react';
-import { Plus } from 'lucide-react';
-import KanbanBoardComponent from '@/components/crm/KanbanBoard';
-import CreateLeadModal from '@/components/crm/CreateLeadModal';
-import LeadDetailsModal from '@/components/crm/LeadDetailsModal';
-import { Lead } from '@/types/crm';
+import { useState, useEffect } from "react";
+import { Plus } from "lucide-react";
+import KanbanBoardComponent from "@/components/crm/KanbanBoard";
+import CreateLeadModal from "@/components/crm/CreateLeadModal";
+import LeadDetailsModal from "@/components/crm/LeadDetailsModal";
+import { Lead } from "@/types/crm";
 
 export default function LeadsPage() {
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
@@ -41,10 +41,7 @@ export default function LeadsPage() {
       </div>
 
       {/* Kanban Board */}
-      <KanbanBoardComponent
-        key={refreshKey}
-        onCardClick={setSelectedLead}
-      />
+      <KanbanBoardComponent key={refreshKey} onCardClick={setSelectedLead} />
 
       {/* Modals */}
       <CreateLeadModal

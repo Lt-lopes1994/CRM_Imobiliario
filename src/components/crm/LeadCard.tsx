@@ -1,9 +1,14 @@
 "use client";
 
-import { DragEvent } from 'react';
-import { Lead, LeadStage, LEAD_STAGE_LABELS, LEAD_STAGE_COLORS } from '@/types/crm';
-import { useSortable } from '@dnd-kit/sortable';
-import { CSS } from '@dnd-kit/utilities';
+import { DragEvent } from "react";
+import {
+  Lead,
+  LeadStage,
+  LEAD_STAGE_LABELS,
+  LEAD_STAGE_COLORS,
+} from "@/types/crm";
+import { useSortable } from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
 
 interface LeadCardProps {
   lead: Lead;
@@ -12,18 +17,18 @@ interface LeadCardProps {
 
 export default function LeadCard({ lead, onCardClick }: LeadCardProps) {
   const formatCurrency = (value?: number) => {
-    if (!value) return 'Não informado';
-    return new Intl.NumberFormat('pt-BR', {
-      style: 'currency',
-      currency: 'BRL',
+    if (!value) return "Não informado";
+    return new Intl.NumberFormat("pt-BR", {
+      style: "currency",
+      currency: "BRL",
     }).format(value);
   };
 
   const formatDate = (date: string) => {
-    return new Date(date).toLocaleDateString('pt-BR', {
-      day: '2-digit',
-      month: '2-digit',
-      year: 'numeric',
+    return new Date(date).toLocaleDateString("pt-BR", {
+      day: "2-digit",
+      month: "2-digit",
+      year: "numeric",
     });
   };
 
@@ -44,12 +49,8 @@ export default function LeadCard({ lead, onCardClick }: LeadCardProps) {
 
       {/* Contact Info */}
       <div className="space-y-1 mb-3">
-        <p className="text-xs text-gray-600">
-          📱 {lead.phone}
-        </p>
-        <p className="text-xs text-gray-600">
-          ✉️ {lead.email}
-        </p>
+        <p className="text-xs text-gray-600">📱 {lead.phone}</p>
+        <p className="text-xs text-gray-600">✉️ {lead.email}</p>
       </div>
 
       {/* Interest & Budget */}
@@ -83,7 +84,9 @@ export default function LeadCard({ lead, onCardClick }: LeadCardProps) {
         <span className="text-xs text-gray-500">
           {formatDate(lead.createdAt)}
         </span>
-        <span className={`text-xs px-2 py-1 rounded-full ${LEAD_STAGE_COLORS[lead.stage]}`}>
+        <span
+          className={`text-xs px-2 py-1 rounded-full ${LEAD_STAGE_COLORS[lead.stage]}`}
+        >
           {LEAD_STAGE_LABELS[lead.stage]}
         </span>
       </div>

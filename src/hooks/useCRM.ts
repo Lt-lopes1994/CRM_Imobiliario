@@ -2,8 +2,8 @@
  * Hooks customizados para integração com API do CRM
  */
 
-import { useState, useCallback } from 'react';
-import { getApiUrl } from '@/lib/api';
+import { useState, useCallback } from "react";
+import { getApiUrl } from "@/lib/api";
 import {
   Lead,
   CreateLeadDto,
@@ -15,27 +15,29 @@ import {
   SendMessageDto,
   MetricsOverview,
   LeadStage,
-} from '@/types/crm';
+} from "@/types/crm";
 
 // ==================== HELPER PARA REQUISIÇÕES ====================
 
 async function apiRequest<T>(
   endpoint: string,
-  options?: RequestInit
+  options?: RequestInit,
 ): Promise<T> {
-  const token = localStorage.getItem('accessToken');
-  
+  const token = localStorage.getItem("accessToken");
+
   const response = await fetch(getApiUrl(endpoint), {
     ...options,
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
       ...(token && { Authorization: `Bearer ${token}` }),
       ...options?.headers,
     },
   });
 
   if (!response.ok) {
-    const error = await response.json().catch(() => ({ message: 'Erro na requisição' }));
+    const error = await response
+      .json()
+      .catch(() => ({ message: "Erro na requisição" }));
     throw new Error(error.message || `Erro: ${response.status}`);
   }
 
@@ -52,13 +54,13 @@ export function useLeads() {
     setLoading(true);
     setError(null);
     try {
-      const lead = await apiRequest<Lead>('leads', {
-        method: 'POST',
+      const lead = await apiRequest<Lead>("leads", {
+        method: "POST",
         body: JSON.stringify(data),
       });
       return lead;
     } catch (err) {
-      const message = err instanceof Error ? err.message : 'Erro ao criar lead';
+      const message = err instanceof Error ? err.message : "Erro ao criar lead";
       setError(message);
       throw err;
     } finally {
@@ -70,11 +72,12 @@ export function useLeads() {
     setLoading(true);
     setError(null);
     try {
-      const endpoint = stage ? `leads?stage=${stage}` : 'leads';
+      const endpoint = stage ? `leads?stage=${stage}` : "leads";
       const leads = await apiRequest<Lead[]>(endpoint);
       return leads;
     } catch (err) {
-      const message = err instanceof Error ? err.message : 'Erro ao buscar leads';
+      const message =
+        err instanceof Error ? err.message : "Erro ao buscar leads";
       setError(message);
       throw err;
     } finally {
@@ -86,10 +89,11 @@ export function useLeads() {
     setLoading(true);
     setError(null);
     try {
-      const board = await apiRequest<KanbanBoard>('leads/kanban');
+      const board = await apiRequest<KanbanBoard>("leads/kanban");
       return board;
     } catch (err) {
-      const message = err instanceof Error ? err.message : 'Erro ao buscar kanban';
+      const message =
+        err instanceof Error ? err.message : "Erro ao buscar kanban";
       setError(message);
       throw err;
     } finally {
@@ -103,19 +107,20 @@ export function useLeads() {
       setError(null);
       try {
         const lead = await apiRequest<Lead>(`leads/${leadId}/stage`, {
-          method: 'PATCH',
+          method: "PATCH",
           body: JSON.stringify(data),
         });
         return lead;
       } catch (err) {
-        const message = err instanceof Error ? err.message : 'Erro ao atualizar estágio';
+        const message =
+          err instanceof Error ? err.message : "Erro ao atualizar estágio";
         setError(message);
         throw err;
       } finally {
         setLoading(false);
       }
     },
-    []
+    [],
   );
 
   const triageLead = useCallback(
@@ -124,19 +129,20 @@ export function useLeads() {
       setError(null);
       try {
         const lead = await apiRequest<Lead>(`leads/${leadId}/triage`, {
-          method: 'POST',
+          method: "POST",
           body: JSON.stringify(data),
         });
         return lead;
       } catch (err) {
-        const message = err instanceof Error ? err.message : 'Erro ao fazer triagem';
+        const message =
+          err instanceof Error ? err.message : "Erro ao fazer triagem";
         setError(message);
         throw err;
       } finally {
         setLoading(false);
       }
     },
-    []
+    [],
   );
 
   return {
@@ -162,29 +168,31 @@ export function useClients() {
       setError(null);
       try {
         const client = await apiRequest<Client>(`clients/from-lead/${leadId}`, {
-          method: 'POST',
+          method: "POST",
           body: JSON.stringify(data),
         });
         return client;
       } catch (err) {
-        const message = err instanceof Error ? err.message : 'Erro ao converter em cliente';
+        const message =
+          err instanceof Error ? err.message : "Erro ao converter em cliente";
         setError(message);
         throw err;
       } finally {
         setLoading(false);
       }
     },
-    []
+    [],
   );
 
   const getClients = useCallback(async (): Promise<Client[]> => {
     setLoading(true);
     setError(null);
     try {
-      const clients = await apiRequest<Client[]>('clients');
+      const clients = await apiRequest<Client[]>("clients");
       return clients;
     } catch (err) {
-      const message = err instanceof Error ? err.message : 'Erro ao buscar clientes';
+      const message =
+        err instanceof Error ? err.message : "Erro ao buscar clientes";
       setError(message);
       throw err;
     } finally {
@@ -198,18 +206,19 @@ export function useClients() {
       setError(null);
       try {
         await apiRequest(`clients/${clientId}/messages`, {
-          method: 'POST',
+          method: "POST",
           body: JSON.stringify(data),
         });
       } catch (err) {
-        const message = err instanceof Error ? err.message : 'Erro ao enviar mensagem';
+        const message =
+          err instanceof Error ? err.message : "Erro ao enviar mensagem";
         setError(message);
         throw err;
       } finally {
         setLoading(false);
       }
     },
-    []
+    [],
   );
 
   return {
@@ -231,10 +240,13 @@ export function useMetrics() {
     setLoading(true);
     setError(null);
     try {
-      const metrics = await apiRequest<MetricsOverview>('admin/metrics/overview');
+      const metrics = await apiRequest<MetricsOverview>(
+        "admin/metrics/overview",
+      );
       return metrics;
     } catch (err) {
-      const message = err instanceof Error ? err.message : 'Erro ao buscar métricas';
+      const message =
+        err instanceof Error ? err.message : "Erro ao buscar métricas";
       setError(message);
       throw err;
     } finally {

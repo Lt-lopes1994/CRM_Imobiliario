@@ -1,13 +1,30 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
-import { useSession, signOut } from "next-auth/react";
 import { Menu, X, LogOut, Settings } from "lucide-react";
+import {
+  clearAuthSession,
+  getCurrentUser,
+  onAuthChanged,
+  type AuthUser,
+} from "@/lib/auth-client";
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { data: session } = useSession();
+  const [user, setUser] = useState<AuthUser | null>(null);
+
+  useEffect(() => {
+    const syncUser = () => setUser(getCurrentUser());
+    syncUser();
+
+    const unsubscribe = onAuthChanged(syncUser);
+    return unsubscribe;
+  }, []);
+
+  const handleLogout = () => {
+    clearAuthSession();
+  };
 
   return (
     <header className="bg-white shadow-sm border-b">
@@ -32,10 +49,10 @@ export function Header() {
 
           {/* Auth Section */}
           <div className="hidden md:flex items-center space-x-4">
-            {session ? (
+            {user ? (
               <div className="flex items-center space-x-4">
-                <span className="text-gray-900">Olá, {session.user.name}</span>
-                {session.user.role === "ADMIN" && (
+                <span className="text-gray-900">Olá, {user.name}</span>
+                {user.role === "ADMIN" && (
                   <Link
                     href="/admin"
                     className="flex items-center space-x-1 text-gray-900 hover:text-blue-600"
@@ -45,7 +62,7 @@ export function Header() {
                   </Link>
                 )}
                 <button
-                  onClick={() => signOut()}
+                  onClick={handleLogout}
                   className="flex items-center space-x-1 text-gray-900 hover:text-red-600"
                 >
                   <LogOut size={16} />
@@ -55,7 +72,7 @@ export function Header() {
             ) : (
               <Link
                 href="/login"
-                className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700"
+                className="px-4 py-2 rounded-md border  hover:scale-105 transition-transform"
               >
                 Entrar
               </Link>
@@ -90,12 +107,10 @@ export function Header() {
               >
                 Contato
               </Link>
-              {session ? (
+              {user ? (
                 <div className="flex flex-col space-y-2 pt-4 border-t">
-                  <span className="text-gray-900">
-                    Olá, {session.user.name}
-                  </span>
-                  {session.user.role === "ADMIN" && (
+                  <span className="text-gray-900">Olá, {user.name}</span>
+                  {user.role === "ADMIN" && (
                     <Link
                       href="/admin"
                       className="flex items-center space-x-1 text-gray-900 hover:text-blue-600"
@@ -105,7 +120,7 @@ export function Header() {
                     </Link>
                   )}
                   <button
-                    onClick={() => signOut()}
+                    onClick={handleLogout}
                     className="flex items-center space-x-1 text-gray-900 hover:text-red-600"
                   >
                     <LogOut size={16} />
@@ -115,7 +130,7 @@ export function Header() {
               ) : (
                 <Link
                   href="/login"
-                  className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 text-center"
+                  className="px-4 py-2 rounded-md border hover:scale-105 transition-transform"
                 >
                   Entrar
                 </Link>

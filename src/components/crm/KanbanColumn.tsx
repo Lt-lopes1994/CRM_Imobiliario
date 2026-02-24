@@ -1,8 +1,8 @@
 "use client";
 
-import { DragEvent } from 'react';
-import { Lead, LeadStage, LEAD_STAGE_LABELS } from '@/types/crm';
-import LeadCard from './LeadCard';
+import { DragEvent } from "react";
+import { Lead, LeadStage, LEAD_STAGE_LABELS } from "@/types/crm";
+import LeadCard from "./LeadCard";
 
 interface KanbanColumnProps {
   stage: LeadStage;
@@ -12,29 +12,34 @@ interface KanbanColumnProps {
 }
 
 const STAGE_COLORS: Record<LeadStage, string> = {
-  NEW: 'border-gray-300 bg-gray-50',
-  CONTACTED: 'border-blue-300 bg-blue-50',
-  QUALIFIED: 'border-yellow-300 bg-yellow-50',
-  PROPOSAL: 'border-purple-300 bg-purple-50',
-  WON: 'border-green-300 bg-green-50',
-  LOST: 'border-red-300 bg-red-50',
+  NEW: "border-gray-300 bg-gray-50",
+  CONTACTED: "border-blue-300 bg-blue-50",
+  QUALIFIED: "border-yellow-300 bg-yellow-50",
+  PROPOSAL: "border-purple-300 bg-purple-50",
+  WON: "border-green-300 bg-green-50",
+  LOST: "border-red-300 bg-red-50",
 };
 
-export default function KanbanColumn({ stage, leads, onCardClick, onDrop }: KanbanColumnProps) {
+export default function KanbanColumn({
+  stage,
+  leads,
+  onCardClick,
+  onDrop,
+}: KanbanColumnProps) {
   const handleDragOver = (e: DragEvent<HTMLDivElement>) => {
     e.preventDefault();
   };
 
   const handleDrop = (e: DragEvent<HTMLDivElement>) => {
     e.preventDefault();
-    const leadId = e.dataTransfer.getData('leadId');
+    const leadId = e.dataTransfer.getData("leadId");
     if (leadId && onDrop) {
       onDrop(leadId, stage);
     }
   };
 
   const handleDragStart = (e: DragEvent<HTMLDivElement>, leadId: string) => {
-    e.dataTransfer.setData('leadId', leadId);
+    e.dataTransfer.setData("leadId", leadId);
   };
 
   return (
